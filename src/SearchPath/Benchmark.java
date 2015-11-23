@@ -66,9 +66,20 @@ public class Benchmark {
                     }
                 }
             }
-            for (int j = 0; j < algoRtm.length; j++) {
-                output.append(easyGraphName[i], DELIMETER, );
-            }
+
+            output.append("Bellmann Ford - Zeit\n");
+            output.append(easyGraphName[i] + DELIMETER + rtm[0]);
+
+            output.append("Floyd Warshall - Zeit\n");
+            output.append(easyGraphName[i] + DELIMETER + rtm[1]);
+
+
+
+            output.append("Bellmann Ford - Zugriffe\n");
+            output.append(easyGraphName[i] + DELIMETER + acc[0]);
+
+            output.append("Floyd Warshall - Zugriffe\n");
+            output.append(easyGraphName[i] + DELIMETER + acc[1]);
         }
 
         writeFile(FILENAME, output.toString());
