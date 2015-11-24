@@ -78,12 +78,10 @@ public class bellf {
         return new ArrayList<>(path);
     }
 
-    public long bellfordRtm(Graph graph, String filename, Vertex v1, Vertex v2){
-
-    }
-
-    public long bellfordAcc(Graph graph, String filename, Vertex v1, Vertex v2){
-
+    public static long bellfordRtm(Graph graph, Vertex v1, Vertex v2) {
+        long time = System.currentTimeMillis();
+        bellford(graph, v1, v2);
+        return System.currentTimeMillis() - time;
     }
 
     private static boolean compareInvinitySave(Integer compareWith, Integer summand1, Integer summand2) {
@@ -94,5 +92,73 @@ public class bellf {
 
     private static ArrayList<Vertex> emptyPath() {
         return new ArrayList<>();
+    }
+
+    public static long bellfordAcc(Graph graph, Vertex v1, Vertex v2) {
+        long acc = 0;
+
+        if (graph == null || v1 == null || v2 == null) return acc;
+        if (!graph.getVertexes().contains(v1)) return acc;
+        if (v1 == v2) return acc;
+
+        ArrayList<Vertex> vertexes = graph.getVertexes();
+        ArrayList<Vertex> edges = graph.getEdges();
+
+        Hashtable<Vertex, Integer> cost = new Hashtable<>();
+        Hashtable<Vertex, Vertex> predecessor = new Hashtable<>();
+
+        cost.put(v1, 0);
+
+        for (int z = 0; z < vertexes.size() - 1; z++) {
+            for (int i = 0; i < edges.size() - 1; i += 2) {
+                Vertex source = edges.get(i); acc++;
+                Vertex target = edges.get(i + 1); acc++;
+
+                Integer firstCost = cost.get(target);
+                Integer secondCost = cost.get(source);
+                Integer thirdCost = graph.getValE(source, target, "cost");
+
+                if (compareInvinitySave(firstCost, secondCost, thirdCost)) {
+                    cost.put(target, cost.get(source) + graph.getValE(source, target, "cost")); acc++;
+                    predecessor.put(target, source);
+                }
+            }
+        }
+        /*
+        System.out.println(graph.getValE(Vertex.createV("v2"), Vertex.createV("v3"), "cost"));
+        System.out.println(graph.getValE(Vertex.createV("v3"), Vertex.createV("v2"), "cost"));
+        System.out.println(cost.get(Vertex.createV("v2")));
+        System.out.println(cost.get(Vertex.createV("v3")));
+        */
+        //System.out.println(cost);
+        for (int i = 0; i < edges.size() - 1; i += 2) {
+            Vertex source = edges.get(i); acc++;
+            Vertex target = edges.get(i + 1); acc++;
+
+            Integer firstCost = cost.get(target);
+            Integer secondCost = cost.get(source);
+            Integer thirdCost = graph.getValE(source, target, "cost"); acc++;
+            //System.out.print(" | " + source + " _ " + target + " ___ " + firstCost + " _ " + secondCost + " _ " + thirdCost);
+            if (firstCost == null || secondCost == null || thirdCost == null) continue;
+            if (firstCost > secondCost + thirdCost) return acc;
+        }
+
+
+        LinkedList<Vertex> path = new LinkedList<>();
+        path.add(v2);
+
+        Vertex pred = predecessor.get(v2);
+        path.add(pred);
+
+        //System.out.println(predecessor);
+        while (pred != v1) {
+            if (pred == null) return acc;
+            pred = predecessor.get(path.getLast());
+
+            path.add(pred);
+        }
+        Collections.reverse(path);
+
+        return acc;
     }
 }

@@ -21,10 +21,10 @@ public class searchTests {
     private static final String BASIC_FILENAME = "graphs/graph_";
 
     private SearchAlgo algo[] = {
-            //(g, start, end) -> bellf.bellford(g, start, end),
+            (g, start, end) -> bellf.bellford(g, start, end),
             (g, start, end) -> floydw.floydwarshall(g, start, end)
     };
-    /*
+
     @Test
     public void testExtern() {
         for (SearchAlgo a : algo) {
@@ -35,7 +35,7 @@ public class searchTests {
             assertSearch(a, getGraph("04"), v("v4"), v("v1"), asList());
             assertSearch(a, getGraph("05"), v("v4"), v("v1"), asList());
         }
-    }*/
+    }
 
     @Test
     public void testOwn() {
@@ -43,10 +43,10 @@ public class searchTests {
 
         for (SearchAlgo a : algo) {
             assertSearch(a, getGraph("own_1"), v("s"), v("t"), asList(v("s"), v("C"), v("A"), v("B"), v("t")));
-            //assertSearch(a, getGraph("own_2"), v("v1"), v("v2"), asList());
+            assertSearch(a, getGraph("own_2"), v("v1"), v("v2"), asList());
         }
     }
-    /*
+
     @Test
     public void testSpecials() {
         for (SearchAlgo a : algo) {
@@ -59,7 +59,7 @@ public class searchTests {
             assertSearch(a, getGraph("01"), v("Augsburg"), null, asList());
             assertSearch(a, null, v("Bonn"), v("Augsburg"), asList());
         }
-    }*/
+    }
 
     // ##########################################
     // private helper
