@@ -78,24 +78,11 @@ public class bellf {
         return new ArrayList<>(path);
     }
 
-    public void setCost(Hashtable<Vertex, Integer> cost, Vertex vertex, Integer length) {
-        cost.replace(vertex, length);
-    }
-
-    public void isCheaper(Integer oldCost, Integer newCost) {
+    public long bellfordRtm(Graph graph, String filename, Vertex v1, Vertex v2){
 
     }
 
-    public void setMin(Hashtable<Vertex, Integer> cost, Hashtable<Vertex, Vertex> predecessor, Vertex oldV, Vertex newV) {
-        Integer oldCost = cost.get(oldV);
-
-    }
-
-    public void bellfordRtm(Graph graph, String filename, Vertex v1, Vertex v2){
-
-    }
-
-    public void bellfordAcc(Graph graph, String filename, Vertex v1, Vertex v2){
+    public long bellfordAcc(Graph graph, String filename, Vertex v1, Vertex v2){
 
     }
 
